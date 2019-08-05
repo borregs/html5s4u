@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<!-- saved from url=(0053)file:///home/borregs/Desktop/html/snakes/burrito.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+  <title>Snakes on a Page</title>
+</head>
+
+<body>
+<canvas id="bc" height="550" width="800" style="float: left;"> <!-- canvas-->
+  <script>
+    
+
+    sizeis=20;
+    tileCount=30;
+    px=py=10;
+    ax=ay=15;
+    xv=yv=0;
+    trail=[];
+    tail=3;
+    
+    window.onload=function() {
+      canv=document.getElementById('bc');
+      ctx=canv.getContext('2d');
+      document.addEventListener("keydown", keyPush);
+      setInterval(gamer,1000/15);
+    }
+
+    billisColor="lime";
+
+    function gamer(){
+
+      px+=xv;
+      py+=yv;
+
+      if(px<0)
+        px=tileCount-1;
+      if(px>tileCount-1)
+        px=0;
+      if(py<0)
+        py=tileCount-1;
+      if(py>tileCount)
+        py=0;
+
+      ctx.fillStyle="black";
+      ctx.fillRect(0,0,canv.width,canv.height);
+
+      ctx.fillStyle="red";
+      ctx.fillRect(ax*sizeis,ay*sizeis,sizeis-2,sizeis-2);
+    
+      ctx.fillStyle=billisColor;
+      for(var i=0;i<trail.length;i++){
+        ctx.fillRect(trail[i].x*sizeis,trail[i].y*sizeis-4,sizeis-4,sizeis);
+        if(trail[i].x==px && trail[i].y==py)
+          tail=3;
+        if(tail==7){
+          prompt("What is my purpose?");}
+        if(tail==10){ 
+          prompt("Why am I in a Box?... Im so lonely");
+          ctx.fillStyle=billisColor="blue";
+
+        }
+
+      
+      }
+      
+      trail.push({x:px,y:py});
+      
+      while(trail.length>tail)
+        trail.shift();
+
+      if(ax==px && ay==py){
+        tail++;
+        ax=Math.floor(Math.random()*tileCount);
+        ay=Math.floor(Math.random()*tileCount);
+      }
+
+    }
+
+
+function keyPush(evt){
+    
+      switch(evt.keyCode){
+        case 37:
+          xv=-1;yv=0;
+        break;
+        case 38:
+          xv=0;yv=-1;
+        break;
+        case 39:
+          xv=1;yv=0;
+        break;
+        case 40:
+          xv=0;yv=1;
+        break;
+      
+      }
+  }
+
+  </script>
+  </canvas>
+  <img src="./Snakes on a Page_files/sudo-1.jpg" style="float: right;" />
+</body></html>
